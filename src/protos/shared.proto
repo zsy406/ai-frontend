@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package shared;
+
+message User {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message Order {
+    string orderId = 1;
+    string userId = 2;
+    string productId = 3;
+    int32 quantity = 4;
+}
+
+message Product {
+    string productId = 1;
+    string name = 2;
+    string description = 3;
+    double price = 4;
+}
+
+message Cart {
+    string cartId = 1;
+    string userId = 2;
+    repeated CartItem items = 3;
+}
+
+message CartItem {
+    string productId = 1;
+    int32 quantity = 2;
+}
+
+service UserService {
+    rpc CreateUser(User) returns (User);
+    rpc GetUser(string) returns (User);
+}
+
+service OrderService {
+    rpc CreateOrder(Order) returns (Order);
+    rpc GetOrder(string) returns (Order);
+}
+
+service ProductService {
+    rpc CreateProduct(Product) returns (Product);
+    rpc GetProduct(string) returns (Product);
+}
+
+service CartService {
+    rpc AddToCart(CartItem) returns (Cart);
+    rpc RemoveFromCart(CartItem) returns (Cart);
+    rpc GetCart(string) returns (Cart);
+}

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserManagementService";
+
+package user;
+
+// User message definition
+message User {
+    int32 id = 1;
+    string username = 2;
+    string name = 3;
+    string email = 4;
+    string password = 5;
+    string position = 8;
+    int32 power = 6;
+    string address =7;
+}
+
+message CreateUserRequest {
+    User user = 1;
+}
+
+// Response message for creating a user
+message CreateUserResponse {
+    User user = 1;
+}
+
+// Request message for retrieving a user
+message GetUserRequest {
+    int32 id = 1;
+}
+
+// Response message for retrieving a user
+message GetUserResponse {
+    User user = 1;
+}
+
+// Request message for user login
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    User user = 1;
+    string token = 2;
+}
+
+message GetAllUsersRequest{}
+message GetAllUsersResponse{
+    repeated User users = 1;
+}
+
+// User management service definition
+service UserService {
+    rpc CreateUserAsync(CreateUserRequest) returns (CreateUserResponse);
+    rpc GetUserByIdAsync(GetUserRequest) returns (GetUserResponse);
+    rpc LoginAsync(LoginRequest) returns (LoginResponse);
+    rpc GetAllUsersAsync(GetAllUsersRequest) returns (GetAllUsersResponse);
+    rpc DeleteUserAsync(GetUserRequest) returns (GetUserResponse);
+    rpc ValidateUserAsync(LoginRequest) returns (User);
+    rpc UpdateUserAsync(CreateUserRequest) returns (CreateUserResponse);
+}
+//abc

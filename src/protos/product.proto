@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductManagementService";
+
+package product;
+
+// The Product service definition.
+service ProductService {
+    // Creates a new product
+    rpc CreateProductAsync(CreateProductRequest) returns (ProductResponse);
+    
+    // Retrieves a product by ID
+    rpc GetProductAsync(GetProductRequest) returns (ProductResponse);
+    
+    // Lists all products
+    rpc ListProductsAsync(Empty) returns (ListProductsResponse);
+
+    rpc UpdateProductAsync(Product) returns (ProductResponse);
+
+    rpc DeleteProductAsync(GetProductRequest) returns (Empty);
+}
+
+// The request message for creating a product
+message CreateProductRequest {
+    Product product = 1;
+}
+
+// The request message for retrieving a product
+message GetProductRequest {
+    int32 id = 1;
+}
+
+// The response message containing product details
+message ProductResponse {
+    Product product = 1;
+}
+
+message Product{
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    float price = 4;
+}
+
+// The response message for listing products
+message ListProductsResponse {
+    repeated Product products = 1;
+}
+
+// An empty message
+message Empty {}
